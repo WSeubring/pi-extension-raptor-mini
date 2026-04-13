@@ -19,8 +19,11 @@ import { getModels } from "@mariozechner/pi-ai";
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
 
 const RAPTOR_ID = "oswe-vscode-prime";
-const RAPTOR_NAME = "Raptor Mini";
-// From GitHub changelog (2025-11-10) and openclaw issue tracker.
+const RAPTOR_NAME = "Raptor mini";
+// GitHub does not publish these officially. 264K context is from the lobehub
+// model-bank catalog (packages/model-bank/src/aiModels/githubCopilot.ts).
+// 64K max output is a community estimate — no authoritative source. If pi-ai
+// upstream bakes in different numbers, those take precedence.
 const RAPTOR_CONTEXT_WINDOW = 264_000;
 const RAPTOR_MAX_TOKENS = 64_000;
 
@@ -38,6 +41,10 @@ export default function (pi: ExtensionAPI) {
 
 	if (existing.some((m) => m.id === RAPTOR_ID)) {
 		// Upstream added raptor-mini to the catalog — extension is obsolete.
+		console.warn(
+			`pi-extension-raptor-mini: "${RAPTOR_ID}" is already in pi-ai's github-copilot catalog. ` +
+				"This extension is now redundant and can be removed (`pi uninstall pi-extension-raptor-mini`).",
+		);
 		return;
 	}
 

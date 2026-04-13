@@ -1,6 +1,6 @@
 {
   "name": "pi-extension-raptor-mini",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "pi extension that adds GitHub Copilot's Raptor Mini (oswe-vscode-prime) model to pi's github-copilot provider.",
   "type": "module",
   "keywords": [
