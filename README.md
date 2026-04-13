@@ -1,5 +1,9 @@
 # pi-extension-raptor-mini
 
+[![npm version](https://img.shields.io/npm/v/pi-extension-raptor-mini.svg)](https://www.npmjs.com/package/pi-extension-raptor-mini)
+[![npm downloads](https://img.shields.io/npm/dm/pi-extension-raptor-mini.svg)](https://www.npmjs.com/package/pi-extension-raptor-mini)
+[![license](https://img.shields.io/npm/l/pi-extension-raptor-mini.svg)](./LICENSE)
+
 Adds GitHub Copilot's **Raptor mini** model (`oswe-vscode-prime`) to [pi](https://github.com/badlogic/pi-mono).
 
 ## Why
