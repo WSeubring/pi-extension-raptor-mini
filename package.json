@@ -1,0 +1,43 @@
+{
+  "name": "pi-extension-raptor-mini",
+  "version": "0.1.0",
+  "description": "pi extension that adds GitHub Copilot's Raptor Mini (oswe-vscode-prime) model to pi's github-copilot provider.",
+  "type": "module",
+  "keywords": [
+    "pi",
+    "pi-package",
+    "extension",
+    "github-copilot",
+    "raptor-mini",
+    "oswe-vscode-prime"
+  ],
+  "pi": {
+    "extensions": ["./index.ts"]
+  },
+  "files": [
+    "index.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "author": "WSeubring",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WSeubring/pi-extension-raptor-mini.git"
+  },
+  "bugs": {
+    "url": "https://github.com/WSeubring/pi-extension-raptor-mini/issues"
+  },
+  "homepage": "https://github.com/WSeubring/pi-extension-raptor-mini#readme",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "peerDependencies": {
+    "@mariozechner/pi-ai": "*",
+    "@mariozechner/pi-coding-agent": "*"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}
