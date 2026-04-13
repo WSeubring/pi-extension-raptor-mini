@@ -11,15 +11,17 @@ This extension re-registers the `github-copilot` provider with every existing mo
 ## Install
 
 ```bash
-# Persistent (global)
-pi install pi-extension-raptor-mini
+# Persistent (global) — installs from npm
+pi install npm:pi-extension-raptor-mini
 
 # Or directly from git
 pi install git:github.com/WSeubring/pi-extension-raptor-mini
 
-# Or try without installing
+# Or try without installing (useful for a local checkout)
 pi -e /path/to/pi-extension-raptor-mini
 ```
+
+> Note the `npm:` prefix. pi treats bare names (e.g. `pi install pi-extension-raptor-mini`) as local filesystem paths, not npm packages — see pi's [packages docs](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/packages.md).
 
 ## Use
 
