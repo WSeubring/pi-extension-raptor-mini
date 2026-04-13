@@ -2,17 +2,8 @@
  * pi-extension-raptor-mini
  *
  * Adds GitHub Copilot's "Raptor Mini" (canonical id: oswe-vscode-prime) to
- * pi's github-copilot provider. Raptor Mini entered public preview on
- * 2025-11-10, after pi's static model catalog was generated, so it is
- * otherwise invisible to `pi --list-models`.
- *
- * This extension re-registers the github-copilot provider with all its
- * existing models PLUS oswe-vscode-prime. Headers and baseUrl are inherited
- * from the existing models at runtime, so any upstream header/version bumps
- * in pi-ai automatically carry over without an extension update.
- *
- * See README for the ToS caveat that applies to pi's Copilot provider in
- * general (not specific to this extension).
+ * pi's github-copilot provider by re-registering the existing provider models
+ * with one extra model.
  */
 
 import { getModels } from "@mariozechner/pi-ai";
@@ -31,8 +22,7 @@ export default function (pi: ExtensionAPI) {
 	const existing = getModels("github-copilot");
 
 	if (existing.length === 0) {
-		// pi-ai's github-copilot catalog is empty — nothing to preserve, bail
-		// rather than register a provider config that would block normal use.
+		// No Copilot models found to inherit from.
 		throw new Error(
 			"pi-extension-raptor-mini: github-copilot provider has no existing models to inherit from. " +
 				"Is pi-ai installed?",
@@ -40,7 +30,7 @@ export default function (pi: ExtensionAPI) {
 	}
 
 	if (existing.some((m) => m.id === RAPTOR_ID)) {
-		// Upstream added raptor-mini to the catalog — extension is obsolete.
+		// Model already present upstream; nothing to do.
 		console.warn(
 			`pi-extension-raptor-mini: "${RAPTOR_ID}" is already in pi-ai's github-copilot catalog. ` +
 				"This extension is now redundant and can be removed (`pi uninstall pi-extension-raptor-mini`).",
@@ -48,10 +38,8 @@ export default function (pi: ExtensionAPI) {
 		return;
 	}
 
-	// Inherit headers and baseUrl from a reference model so version bumps in
-	// pi-ai's vendored header set (User-Agent, Editor-Version, etc.) carry
-	// over automatically. grok-code-fast-1 is the closest analog: also
-	// openai-completions, text-only, same header shape.
+	// Copy headers/baseUrl from an existing Copilot model so upstream changes
+	// continue to work without updating the extension.
 	const reference = existing.find((m) => m.id === "grok-code-fast-1") ?? existing[0];
 
 	const raptorMini = {
@@ -69,9 +57,8 @@ export default function (pi: ExtensionAPI) {
 
 	pi.registerProvider("github-copilot", {
 		baseUrl: reference.baseUrl,
-		// pi-ai resolves the OAuth token via authStorage before consulting
-		// this fallback, so the env var name is only a placeholder to satisfy
-		// the registry's "apiKey or oauth" validation.
+		// authStorage / oauth are handled by pi-ai; this apiKey is only a
+		// registry placeholder.
 		apiKey: "GITHUB_COPILOT_TOKEN",
 		models: [...existing, raptorMini],
 	});
